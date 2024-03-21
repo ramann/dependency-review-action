@@ -102,7 +102,7 @@ function getOptionalInput(name: string): string | undefined {
 
 function parseList(list: string | undefined): string[] | undefined {
   if (list === undefined) {
-    return list
+    return undefined
   } else {
     return list.split(',').map(x => x.trim())
   }
