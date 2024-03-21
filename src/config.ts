@@ -116,7 +116,7 @@ function validateLicenses(
     return
   }
 
-  const invalid_licenses = licenses.filter(license => !isSPDXValid(license))
+  const invalid_licenses = licenses.filter(license => !spdx.isValid(license))
 
   if (invalid_licenses.length > 0) {
     throw new Error(`Invalid license(s) in ${key}: ${invalid_licenses}`)
@@ -135,6 +135,7 @@ async function readConfigFile(
   const pieces = format.exec(filePath)
 
   try {
+    // remote config file
     if (pieces?.groups && pieces.length === 5) {
       data = await getRemoteConfig({
         owner: pieces.groups.owner,
@@ -143,7 +144,9 @@ async function readConfigFile(
         ref: pieces.groups.ref
       })
     } else {
-      data = fs.readFileSync(path.resolve(filePath), 'utf-8')
+      // repo-local file
+      const fullPath = path.resolve(__dirname, filePath)
+      data = fs.readFileSync(fullPath).toString()
     }
     return parseConfigFile(data)
   } catch (error) {
@@ -155,7 +158,12 @@ async function readConfigFile(
 
 function parseConfigFile(configData: string): ConfigurationOptionsPartial {
   try {
-    const data = YAML.parse(configData)
+    let data: any
+    try {
+      data = YAML.parse(configData)
+    } catch (e) {
+      throw new Error(`Can't parse YAML: ${(e as Error).message}`)
+    }
 
     // These are the options that we support where the user can provide
     // either a YAML list or a comma-separated string.
