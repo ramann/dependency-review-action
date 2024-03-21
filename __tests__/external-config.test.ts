@@ -26,10 +26,6 @@ jest.mock('octokit', () => {
   }
 })
 
-beforeAll(() => {
-  jest.spyOn(Utils, 'isSPDXValid').mockReturnValue(true)
-})
-
 beforeEach(() => {
   clearInputs()
 })

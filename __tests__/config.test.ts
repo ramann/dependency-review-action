@@ -4,10 +4,6 @@ import {getRefs} from '../src/git-refs'
 import * as spdx from '../src/spdx'
 import {setInput, clearInputs} from './test-helpers'
 
-beforeAll(() => {
-  jest.spyOn(Utils, 'isSPDXValid').mockReturnValue(true)
-})
-
 beforeEach(() => {
   clearInputs()
 })
@@ -159,7 +155,7 @@ test('it is not possible to disable both checks', async () => {
 
 describe('licenses that are not valid SPDX licenses', () => {
   beforeAll(() => {
-    jest.spyOn(Utils, 'isSPDXValid').mockReturnValue(false)
+    jest.spyOn(spdx, 'isValid').mockReturnValue(false)
   })
 
   test('it raises an error for invalid licenses in allow-licenses', async () => {
