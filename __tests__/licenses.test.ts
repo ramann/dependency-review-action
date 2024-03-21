@@ -101,10 +101,13 @@ jest.mock('octokit', () => {
 
 beforeEach(async () => {
   jest.resetModules()
-  jest.doMock('spdx-satisfies', () => {
-    // mock spdx-satisfies return value
-    // true for BSD, false for all others
-    return jest.fn((license: string, _: string): boolean => license === 'BSD')
+  jest.mock('../src/spdx', () => {
+    return {
+      ...spdx,
+      satisfies: jest.fn(
+        (license: string, _: string): boolean => license === 'BSD'
+      )
+    }
   })
   // eslint-disable-next-line @typescript-eslint/no-require-imports
   ;({getInvalidLicenseChanges} = require('../src/licenses'))
@@ -163,11 +166,14 @@ test('it adds license outside the allow list to forbidden changes if it is in bo
 })
 
 test('it adds all licenses to unresolved if it is unable to determine the validity', async () => {
-  jest.resetModules() // reset module set in before
-  jest.doMock('spdx-satisfies', () => {
-    return jest.fn((_first: string, _second: string) => {
-      throw new Error('Some Error')
-    })
+  jest.resetModules()
+  jest.mock('../src/spdx', () => {
+    return {
+      ...spdx,
+      satisfies: jest.fn((_l: string, _e: string): boolean => {
+        throw new Error('Some Error')
+      })
+    }
   })
   // eslint-disable-next-line @typescript-eslint/no-require-imports
   ;({getInvalidLicenseChanges} = require('../src/licenses'))
