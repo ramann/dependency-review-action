@@ -1,5 +1,6 @@
 import {expect, jest, test} from '@jest/globals'
 import {Change, Changes} from '../src/schemas'
+import * as spdx from '../src/spdx'
 
 let getDeniedChanges: Function
 

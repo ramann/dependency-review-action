@@ -1,7 +1,7 @@
 import {expect, test, beforeEach} from '@jest/globals'
 import {readConfig} from '../src/config'
 import {getRefs} from '../src/git-refs'
-import * as Utils from '../src/utils'
+import * as spdx from '../src/spdx'
 import {setInput, clearInputs} from './test-helpers'
 
 beforeAll(() => {

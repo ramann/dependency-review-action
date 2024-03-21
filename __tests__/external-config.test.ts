@@ -1,6 +1,7 @@
+import * as spdx from '../src/spdx'
+import * as path from 'path'
 import {expect, test, beforeEach} from '@jest/globals'
 import {readConfig} from '../src/config'
-import * as Utils from '../src/utils'
 import {setInput, clearInputs} from './test-helpers'
 
 const externalConfig = `fail_on_severity: 'high'

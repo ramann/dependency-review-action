@@ -1,10 +1,11 @@
+import * as path from 'path'
 import * as fs from 'fs'
-import path from 'path'
-import YAML from 'yaml'
+import * as YAML from 'yaml'
 import * as core from '@actions/core'
 import * as z from 'zod'
 import {ConfigurationOptions, ConfigurationOptionsSchema} from './schemas'
-import {isSPDXValid, octokitClient} from './utils'
+import {octokitClient} from './utils'
+import * as spdx from './spdx'
 import {PackageURL} from 'packageurl-js'
 
 type ConfigurationOptionsPartial = Partial<ConfigurationOptions>
