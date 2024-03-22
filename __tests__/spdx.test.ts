@@ -38,6 +38,11 @@ describe('satisfies', () => {
     expect(spdx.satisfies(license, expr)).toBe(true)
   })
 
+  test('GPL expressions are supported', () => {
+    const license = 'GPL-2.0'
+    const expr = 'GPL-3.0-or-later'
+    expect(spdx.satisfies(license, expr)).toBe(false)
+  })
 
   test('returns false if no matches are found', async () => {
     const license = 'ISC'
