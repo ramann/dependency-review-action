@@ -155,21 +155,17 @@ test('it is not possible to disable both checks', async () => {
 })
 
 describe('licenses that are not valid SPDX licenses', () => {
-  beforeAll(() => {
-    jest.spyOn(spdx, 'isValid').mockReturnValue(false)
-  })
-
   test('it raises an error for invalid licenses in allow-licenses', async () => {
-    setInput('allow-licenses', ' BSD-3-Clause, GPL-2.0')
+    setInput('allow-licenses', 'BSD')
     await expect(readConfig()).rejects.toThrow(
-      'Invalid license(s) in allow-licenses: BSD-3-Clause,GPL-2.0'
+      'Invalid license(s) in allow-licenses: BSD'
     )
   })
 
   test('it raises an error for invalid licenses in deny-licenses', async () => {
-    setInput('deny-licenses', ' BSD-3-Clause, GPL-2.0')
+    setInput('deny-licenses', 'BSD')
     await expect(readConfig()).rejects.toThrow(
-      'Invalid license(s) in deny-licenses: BSD-3-Clause,GPL-2.0'
+      'Invalid license(s) in deny-licenses: BSD'
     )
   })
 })
