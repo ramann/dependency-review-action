@@ -158,7 +158,7 @@ async function readConfigFile(
 
 function parseConfigFile(configData: string): ConfigurationOptionsPartial {
   try {
-    let data: any
+    let data: Record<string, unknown>
     try {
       data = YAML.parse(configData)
     } catch (e) {
@@ -189,13 +189,16 @@ function parseConfigFile(configData: string): ConfigurationOptionsPartial {
       }
 
       // perform SPDX validation
-      if (key === 'allow-licenses' || key === 'deny-licenses') {
-        validateLicenses(key, data[key])
+      if (
+        (key === 'allow-licenses' || key === 'deny-licenses') &&
+        Array.isArray(data[key])
+      ) {
+        validateLicenses(key, data[key] as string[])
       }
 
       // validate purls from the allow-dependencies-licenses
-      if (key === 'allow-dependencies-licenses') {
-        validatePURL(data[key])
+      if (key === 'allow-dependencies-licenses' && Array.isArray(data[key])) {
+        validatePURL(data[key] as string[])
       }
 
       // get rid of the ugly dashes from the actions conventions

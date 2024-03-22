@@ -1,4 +1,4 @@
-import * as spdxParse from 'spdx-expression-parse'
+import spdxParse from 'spdx-expression-parse'
 import {satisfies as spdxSatisfies} from '@onebeyond/spdx-license-satisfies'
 
 // TODO: we probably want to handle `OTHER` and `NOASSERTION` here too
@@ -15,14 +15,9 @@ export function isValid(license: string): boolean {
     // was caused by the expression parser, this
     // usually means a discrepancy in ESM/CJS.
     if (e instanceof TypeError) {
-      console.log('spdx: invalid expression parser')
+      throw new Error('spdx: invalid expression parser')
     }
 
     return false
   }
-}
-
-module.exports = {
-  satisfies,
-  isValid
 }
