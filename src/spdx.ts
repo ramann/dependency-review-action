@@ -1,7 +1,8 @@
 import spdxParse from 'spdx-expression-parse'
 import {satisfies as spdxSatisfies} from '@onebeyond/spdx-license-satisfies'
 
-// TODO: we probably want to handle `OTHER` and `NOASSERTION` here too
+// TODO: Add support for NOASSERTION (#704), (#575)
+// TODO: Handle uknown licenses (#714)
 export function satisfies(license: string, expr: string): boolean {
   return spdxSatisfies(license, expr)
 }

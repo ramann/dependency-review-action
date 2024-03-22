@@ -1134,7 +1134,8 @@ Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.isValid = exports.satisfies = void 0;
 const spdx_expression_parse_1 = __importDefault(__nccwpck_require__(1620));
 const spdx_license_satisfies_1 = __nccwpck_require__(9391);
-// TODO: we probably want to handle `OTHER` and `NOASSERTION` here too
+// TODO: Add support for NOASSERTION (#704), (#575)
+// TODO: Handle uknown licenses (#714)
 function satisfies(license, expr) {
     return (0, spdx_license_satisfies_1.satisfies)(license, expr);
 }
@@ -50277,7 +50278,8 @@ Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.isValid = exports.satisfies = void 0;
 const spdx_expression_parse_1 = __importDefault(__nccwpck_require__(1620));
 const spdx_license_satisfies_1 = __nccwpck_require__(9391);
-// TODO: we probably want to handle `OTHER` and `NOASSERTION` here too
+// TODO: Add support for NOASSERTION (#704), (#575)
+// TODO: Handle uknown licenses (#714)
 function satisfies(license, expr) {
     return (0, spdx_license_satisfies_1.satisfies)(license, expr);
 }
