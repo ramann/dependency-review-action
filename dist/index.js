@@ -49937,25 +49937,25 @@ function readConfigFile(filePath) {
     });
 }
 function parseConfigFile(configData) {
+    let data;
     try {
-        let data;
-        try {
-            data = YAML.parse(configData);
-        }
-        catch (e) {
-            throw new Error(`Can't parse YAML: ${e.message}`);
-        }
-        // These are the options that we support where the user can provide
-        // either a YAML list or a comma-separated string.
-        const listKeys = [
-            'allow-licenses',
-            'deny-licenses',
-            'fail-on-scopes',
-            'allow-ghsas',
-            'allow-dependencies-licenses',
-            'deny-packages',
-            'deny-groups'
-        ];
+        data = YAML.parse(configData);
+    }
+    catch (e) {
+        throw new Error(`Can't parse YAML: ${e.message}`);
+    }
+    // These are the options that we support where the user can provide
+    // either a YAML list or a comma-separated string.
+    const listKeys = [
+        'allow-licenses',
+        'deny-licenses',
+        'fail-on-scopes',
+        'allow-ghsas',
+        'allow-dependencies-licenses',
+        'deny-packages',
+        'deny-groups'
+    ];
+    try {
         for (const key of Object.keys(data)) {
             // strings can contain list values (e.g. 'MIT, Apache-2.0'). In this
             // case we need to parse that into a list (e.g. ['MIT', 'Apache-2.0']).
@@ -49983,7 +49983,7 @@ function parseConfigFile(configData) {
         return data;
     }
     catch (error) {
-        throw error;
+        throw new Error(`error validating config: ${error}`);
     }
 }
 function getRemoteConfig(configOpts) {
