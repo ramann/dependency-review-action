@@ -26,6 +26,19 @@ describe('satisfies', () => {
     expect(spdx.satisfies(license, expr)).toBe(true)
   })
 
+  test('-only expressions are properly parsed', () => {
+    const license = 'GPL-3.0'
+    const expr = 'GPL-3.0-only'
+    expect(spdx.satisfies(license, expr)).toBe(true)
+  })
+
+  test('-or-later expressions are properly parsed', () => {
+    const license = 'GPL-3.0'
+    const expr = 'GPL-2.0-or-later'
+    expect(spdx.satisfies(license, expr)).toBe(true)
+  })
+
+
   test('returns false if no matches are found', async () => {
     const license = 'ISC'
     const expr = 'MIT OR GPL-2.0'
