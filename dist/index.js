@@ -49938,13 +49938,7 @@ function readConfigFile(filePath) {
     });
 }
 function parseConfigFile(configData) {
-    let data;
-    try {
-        data = YAML.parse(configData);
-    }
-    catch (e) {
-        throw new Error(`Can't parse YAML: ${e.message}`);
-    }
+    const data = YAML.parse(configData);
     // These are the options that we support where the user can provide
     // either a YAML list or a comma-separated string.
     const listKeys = [

@@ -157,12 +157,7 @@ async function readConfigFile(
 }
 
 function parseConfigFile(configData: string): ConfigurationOptionsPartial {
-  let data: Record<string, unknown>
-  try {
-    data = YAML.parse(configData)
-  } catch (e) {
-    throw new Error(`Can't parse YAML: ${(e as Error).message}`)
-  }
+  const data = YAML.parse(configData)
 
   // These are the options that we support where the user can provide
   // either a YAML list or a comma-separated string.
