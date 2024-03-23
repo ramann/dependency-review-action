@@ -49928,7 +49928,7 @@ function readConfigFile(filePath) {
             else {
                 // repo-local file
                 const fullPath = path.resolve(__dirname, filePath);
-                data = fs.readFileSync(fullPath).toString();
+                data = fs.readFileSync(fullPath, 'utf-8').toString();
             }
             return parseConfigFile(data);
         }
